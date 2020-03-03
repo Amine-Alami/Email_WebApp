@@ -1,0 +1,55 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Model.master.cs" Inherits="Firebird_Test.Model" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+        .auto-style1 {
+            width: 100%;
+        }
+        
+        .auto-style2 {
+            text-align: center;
+        }
+        .auto-style4 {
+            text-align: center;
+            background-color: #2D53A1;
+        }
+        .auto-style5 {
+            width: 210px;
+            height: 106px;
+        }
+        .auto-style6 {
+            width: 1349px;
+            height: 334px;
+        }
+        
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <table class="auto-style1">
+                <tr>
+                    <td class="auto-style4">
+                        <img class="auto-style5" src="Content/OmniLogo.PNG" /></td>
+                </tr>
+                <tr>
+                    <td class="auto-style2">
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" >
+                        </asp:ContentPlaceHolder>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="auto-style2">
+                        <img class="auto-style6" src="Content/OmniFooter.PNG" /></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+</html>
