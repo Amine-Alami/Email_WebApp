@@ -33,7 +33,8 @@ namespace Email_WebApp
 				gvitems.DataSource = dt;
 				gvitems.DataBind();
 
-				SendEmail(dt);
+				// Activate the code below when you're ready to send emails
+				// SendEmail(dt);
 			}
 		}
 

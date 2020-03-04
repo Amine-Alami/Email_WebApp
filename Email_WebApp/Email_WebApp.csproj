@@ -109,19 +109,38 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Carousel.aspx" />
+    <Content Include="Caroussel\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Caroussel\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Caroussel\css\Customizable-Carousel-swipe-enabled.css" />
+    <Content Include="Caroussel\css\styles.css" />
+    <Content Include="Caroussel\js\Customizable-Carousel-swipe-enabled.js" />
+    <Content Include="Caroussel\js\jquery.min.js" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\OmniFooter.PNG" />
-    <Content Include="Content\OmniLogo.PNG" />
     <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Main.aspx" />
+    <Content Include="Images\carousel_image_1.png" />
+    <Content Include="Images\carousel_image_2.jpg" />
+    <Content Include="Images\carousel_image_3.jpg" />
+    <Content Include="Images\OmniFooter.PNG" />
+    <Content Include="Images\OmniLogo.PNG" />
+    <Content Include="Employees.aspx" />
     <Content Include="Model.Master" />
+    <Content Include="Navbar\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Navbar\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Navbar\css\Dark-NavBar-1.css" />
+    <Content Include="Navbar\css\Dark-NavBar-2.css" />
+    <Content Include="Navbar\css\Dark-NavBar.css" />
+    <Content Include="Navbar\css\styles.css" />
+    <Content Include="Navbar\fonts\font-awesome.min.css" />
+    <Content Include="Navbar\fonts\fontawesome-webfont.svg" />
+    <Content Include="Navbar\js\jquery.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -145,6 +164,11 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Navbar\fonts\fontawesome-webfont.eot" />
+    <Content Include="Navbar\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Navbar\fonts\fontawesome-webfont.woff" />
+    <Content Include="Navbar\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Navbar\fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -260,15 +284,22 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Carousel.aspx.cs">
+      <DependentUpon>Carousel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Carousel.aspx.designer.cs">
+      <DependentUpon>Carousel.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Main.aspx.cs">
-      <DependentUpon>Main.aspx</DependentUpon>
+    <Compile Include="Employees.aspx.cs">
+      <DependentUpon>Employees.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Main.aspx.designer.cs">
-      <DependentUpon>Main.aspx</DependentUpon>
+    <Compile Include="Employees.aspx.designer.cs">
+      <DependentUpon>Employees.aspx</DependentUpon>
     </Compile>
     <Compile Include="Model.Master.cs">
       <DependentUpon>Model.Master</DependentUpon>

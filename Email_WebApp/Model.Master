@@ -14,6 +14,7 @@
         
         .auto-style2 {
             text-align: center;
+            background-color: #2D53A1;
         }
         .auto-style4 {
             text-align: center;
@@ -27,29 +28,73 @@
             width: 1349px;
             height: 334px;
         }
-        
+        .wrapper {
+          display: flex;
+          align-items: stretch;
+        }
+
+        body {
+          margin: 0;
+          font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.5;
+          color: #212529;
+          text-align: left;
+          background-color: #fff;
+        }
+        .back{
+            background-color : #37434D;
+        }
     </style>
+    <link rel="stylesheet" href="Navbar/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Navbar/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="Navbar/css/Dark-NavBar-1.css">
+    <link rel="stylesheet" href="Navbar/css/Dark-NavBar-2.css">
+    <link rel="stylesheet" href="Navbar/css/Dark-NavBar.css">
+    <link rel="stylesheet" href="Navbar/css/styles.css">
 </head>
 <body>
+    <%--header--%>
+    <div class="auto-style4" ><img class="auto-style5" src="Images/OmniLogo.PNG" /></div>
+    
+    <%--Navbar--%>
+    <div>
+        <nav class="navbar navbar-light navbar-expand-md sticky-top navigation-clean-button" style="height:80px;background-color:#37434d;color:#ffffff;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="Carousel.aspx">
+                    <i class="fa fa-globe"></i>
+                    &nbsp;OmniNetworks
+                </a>
+                <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse back" id="navcol-1">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item" role="presentation"><a class="nav-link " style="color:#ffffff;" href="Carousel.aspx"><i class="fa fa-home"></i>&nbsp;Home</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link " style="color:#ffffff;" href="Employees.aspx"><i class="fa fa-users"></i>&nbsp;Employees</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link " style="color:#ffffff;" href="#"><i class="fa fa-building-o"></i>&nbsp;Departements</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link " style="color:#ffffff;" href="#"><i class="fa fa-key"></i>&nbsp;Login</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link " style="color:#ffffff;" href="#"><i class="fa fa-sign-in"></i>&nbsp;Sign In</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    
+    <%-- Content --%>
     <form id="form1" runat="server">
         <div>
-            <table class="auto-style1">
-                <tr>
-                    <td class="auto-style4">
-                        <img class="auto-style5" src="Content/OmniLogo.PNG" /></td>
-                </tr>
-                <tr>
-                    <td class="auto-style2">
-                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" >
-                        </asp:ContentPlaceHolder>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="auto-style2">
-                        <img class="auto-style6" src="Content/OmniFooter.PNG" /></td>
-                </tr>
-            </table>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" >
+            </asp:ContentPlaceHolder>
         </div>
     </form>
+
+    <%-- Footer --%>
+    <div class="auto-style4" ><img class="auto-style6" src="Images/OmniFooter.PNG" /></div>
+    
+    <script src="Navbar/js/jquery.min.js"></script>
+    <script src="Navbar/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
