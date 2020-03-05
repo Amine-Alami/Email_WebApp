@@ -13,6 +13,15 @@ namespace Email_WebApp {
     public partial class Main {
         
         /// <summary>
+        /// datatableBody control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl datatableBody;
+        
+        /// <summary>
         /// gvitems control.
         /// </summary>
         /// <remarks>
@@ -20,14 +29,5 @@ namespace Email_WebApp {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvitems;
-        
-        /// <summary>
-        /// TextArea1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea TextArea1;
     }
 }

@@ -46,6 +46,7 @@
         .back{
             background-color : #37434D;
         }
+
     </style>
     <link rel="stylesheet" href="Navbar/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="Navbar/fonts/font-awesome.min.css">
@@ -63,8 +64,8 @@
         <nav class="navbar navbar-light navbar-expand-md sticky-top navigation-clean-button" style="height:80px;background-color:#37434d;color:#ffffff;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="Carousel.aspx">
-                    <i class="fa fa-globe"></i>
-                    &nbsp;OmniNetworks
+                    <i class="fa fa-home"></i>
+                    &nbsp;OmniMail
                 </a>
                 <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
                     <span class="sr-only">Toggle navigation</span>
@@ -72,15 +73,79 @@
                 </button>
                 <div class="collapse navbar-collapse back" id="navcol-1">
                     <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item" role="presentation"><a class="nav-link " style="color:#ffffff;" href="Carousel.aspx"><i class="fa fa-home"></i>&nbsp;Home</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link " style="color:#ffffff;" href="Employees.aspx"><i class="fa fa-users"></i>&nbsp;Employees</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link " style="color:#ffffff;" href="#"><i class="fa fa-building-o"></i>&nbsp;Departements</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link " style="color:#ffffff;" href="#"><i class="fa fa-key"></i>&nbsp;Login</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link " style="color:#ffffff;" href="#"><i class="fa fa-sign-in"></i>&nbsp;Sign In</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link " style="color:#ffffff;" href="Employees.aspx">                 <i class="fa fa-envelope"></i>&nbsp;Mailing</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link " style="color:#ffffff;" href="#register" data-toggle="modal">  <i class="fa fa-user-plus"></i>&nbsp;Sign up</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link " style="color:#ffffff;" href="#signin" data-toggle="modal">    <i class="fa fa-sign-in"></i>&nbsp;Sign In</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <div class="modal fade" role="dialog" tabindex="-1" id="signin">
+            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Sign in</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend"><span class="text-primary input-group-text"><i class="fa fa-user"></i></span></div><input class="form-control" type="text" required="" placeholder="Username">
+                                    <div class="input-group-append"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend"><span class="text-primary input-group-text"><i class="fa fa-lock"></i></span></div><input class="form-control" type="password" required="" placeholder="Password">
+                                    <div class="input-group-append"></div>
+                                </div>
+                            </div>
+                            <div class="form-group"><button class="btn btn-primary btn-lg text-white" style="width: 100%;" type="button">Sign in</button></div>
+                        </form>
+                        <hr style="background-color: #bababa;">
+                        <p class="text-center">&nbsp;<button class="btn btn-link" data-dismiss="modal" data-toggle="modal" data-target="#register">I don't have an account.</button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" role="dialog" tabindex="-1" id="register">
+            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Sign up</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend"><span class="text-primary input-group-text"><i class="fa fa-user"></i></span></div><input class="form-control" type="text" required="" placeholder="Username">
+                                    <div class="input-group-append"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend"><span class="text-primary input-group-text"><i class="fa fa-envelope-o"></i></span></div><input class="form-control" type="email" required="" placeholder="E-mail">
+                                    <div class="input-group-append"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend"><span class="text-primary input-group-text"><i class="fa fa-lock"></i></span></div><input class="form-control" type="password" required="" placeholder="Password">
+                                    <div class="input-group-append"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend"><span class="text-primary input-group-text"><i class="fa fa-lock"></i></span></div><input class="form-control" type="password" required="" placeholder="Confirm password">
+                                    <div class="input-group-append"></div>
+                                </div>
+                            </div>
+                            <div class="form-group"><button class="btn btn-primary btn-lg text-white" style="width: 100%;" type="button">Sign up</button></div>
+                        </form>
+                        <hr style="background-color: #bababa;">
+                        <p class="text-center">&nbsp;<button class="btn btn-link" data-dismiss="modal" data-toggle="modal" data-target="#signin">I already have an account.</button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     
     <%-- Content --%>
