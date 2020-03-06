@@ -8,14 +8,6 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <style type="text/css">
-        .auto-style1 {
-            width: 100%;
-        }
-        
-        .auto-style2 {
-            text-align: center;
-            background-color: #2D53A1;
-        }
         .auto-style4 {
             text-align: center;
             background-color: #2D53A1;
@@ -23,10 +15,6 @@
         .auto-style5 {
             width: 210px;
             height: 106px;
-        }
-        .auto-style6 {
-            width: 1349px;
-            height: 334px;
         }
         .wrapper {
           display: flex;
@@ -54,6 +42,13 @@
     <link rel="stylesheet" href="Navbar/css/Dark-NavBar-2.css">
     <link rel="stylesheet" href="Navbar/css/Dark-NavBar.css">
     <link rel="stylesheet" href="Navbar/css/styles.css">
+
+
+    <link rel="stylesheet" href="Footer/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
+    <link rel="stylesheet" href="Footer/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="Footer/css/Pretty-Footer.css">
+    <link rel="stylesheet" href="Footer/css/styles.css">
 </head>
 <body>
     <%--header--%>
@@ -63,7 +58,7 @@
     <div>
         <nav class="navbar navbar-light navbar-expand-md sticky-top navigation-clean-button" style="height:80px;background-color:#37434d;color:#ffffff;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="Carousel.aspx">
+                <a class="navbar-brand" href="Carousel.aspx" style="color:white">
                     <i class="fa fa-home"></i>
                     &nbsp;OmniMail
                 </a>
@@ -157,7 +152,32 @@
     </form>
 
     <%-- Footer --%>
-    <div class="auto-style4" ><img class="auto-style6" src="Images/OmniFooter.PNG" /></div>
+    <footer>
+        <div class="row">
+            <div class="col-sm-6 col-md-4 footer-navigation">
+                <h3><a href="http://omninetworks.ma/">Omni<span>Networks </span></a></h3>
+                <p class="links"><a href="#">Home</a><strong> · </strong><a href="#">Blog</a><strong> · </strong><a href="#">Pricing</a><strong> · </strong><a href="http://omninetworks.ma/apropos/">About</a><strong> · </strong><a href="#">Faq</a><strong> · </strong><a href="http://omninetworks.ma/contact/">Contact</a></p>
+                <p class="company-name">Copyright Omninetworks 2019. all rights Reserved </p>
+            </div>
+            <div class="col-sm-6 col-md-4 footer-contacts">
+                <div><span class="fa fa-map-marker footer-contacts-icon"> </span>
+                    <p><span class="new-line-span">Bloc H, N* 299, passage 4 Alhouda CP 80070 </span>Agadir - Maroc</p>
+                </div>
+                <div><i class="fa fa-phone footer-contacts-icon"></i>
+                    <p class="footer-center-info email text-left"> +212 (0) 528 322 185 / 196</p>
+                </div>
+                <div><i class="fa fa-envelope footer-contacts-icon"></i>
+                    <p> <a href="#" target="http://omninetworks.ma/contact/">contact@omninetworks.ma</a></p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-4 footer-about">
+                <h4>About the company</h4>
+                <p> OmniNetworks est née de la rencontre d’une équipe dynamique d’ingénieurs d’Agadir spécialisés dans le développement logiciels. </p>
+                <div class="social-links social-icons"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-github"></i></a></div>
+            </div>
+        </div>
+    </footer>
     
     <script src="Navbar/js/jquery.min.js"></script>
     <script src="Navbar/bootstrap/js/bootstrap.min.js"></script>

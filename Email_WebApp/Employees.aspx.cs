@@ -24,9 +24,11 @@ namespace Email_WebApp
 					cnx.Close();
 				cnx.Open();
 
-				FbCommand cmd = new FbCommand("select first 50 MATRICULE_152, PRENOM_152, EMAIL_152, DATE_COMPT_210, ('de  ' ||HE_COMPT_210 || '  à  ' || HS_COMPT_210) AS PERIODE ,CUMUL_ARRONDI_210 from T_0152_PERSONNEL join t_0210_mvts on MATRICULE_152 = MATRICULE_152_210", cnx, cnx.BeginTransaction());
-				cmd.CommandType = CommandType.Text;
-				
+				//FbCommand cmd = new FbCommand("select first 50 MATRICULE_152, PRENOM_152, EMAIL_152, DATE_COMPT_210, ('de  ' ||HE_COMPT_210 || '  à  ' || HS_COMPT_210) AS PERIODE ,CUMUL_ARRONDI_210 from T_0152_PERSONNEL join t_0210_mvts on MATRICULE_152 = MATRICULE_152_210", cnx, cnx.BeginTransaction());
+				FbCommand cmd = new FbCommand("GETPERSONNEL", cnx, cnx.BeginTransaction());
+				//cmd.CommandType = CommandType.Text;	
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.Parameters.AddWithValue("@num", 50);
 				DataTable dt = new DataTable();
 				dt.Clear();
 				FbDataAdapter da = new FbDataAdapter(cmd);
@@ -43,7 +45,7 @@ namespace Email_WebApp
 					html.Append("<tr>");
 
 					html.Append("<td>");
-					html.AppendFormat("< input type = 'checkbox' />");
+					html.Append("<input type=\"checkbox\" name=\"CheckSelect").Append(row["MATRICULE"]).Append("\">");
 					html.Append("</td>");
 
 					foreach (DataColumn column in dt.Columns)
@@ -53,6 +55,8 @@ namespace Email_WebApp
 						html.Append("</td>");
 					}
 					html.Append("</tr>");
+
+					// string ss = $"test { html }";
 					
 				}
 				datatableBody.Controls.Add(new Literal

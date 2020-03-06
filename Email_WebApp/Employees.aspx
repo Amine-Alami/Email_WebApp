@@ -2,6 +2,17 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <link rel="stylesheet" href="assets/css/Filter.css">
+    <style>
+        .select {
+    width: 170px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 0 2px #aaa;
+    margin: 10px;
+    background: #eee;
+}
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -124,7 +135,6 @@
                                             <th>Matricule</th>
                                             <th>Prenom</th>
                                             <th>Date</th>
-                                            <th>Periode</th>
                                             <th>Total</th>
                                         </tr>
                                     </thead>
@@ -196,6 +206,11 @@
                 <SortedDescendingCellStyle BackColor="#E9EBEF" />
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
             </asp:GridView>
+            <asp:DropDownList ID="DropDownList1" CssClass="select" runat="server">
+                <asp:ListItem>hhhhh</asp:ListItem>
+                <asp:ListItem>hhhhh</asp:ListItem>
+                <asp:ListItem>hhhhh</asp:ListItem>
+            </asp:DropDownList>
         </div>
     </div>
 
