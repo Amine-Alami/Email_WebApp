@@ -12,10 +12,12 @@
             text-align: center;
             background-color: #2D53A1;
         }
+
         .auto-style5 {
             width: 210px;
             height: 106px;
         }
+
         .wrapper {
           display: flex;
           align-items: stretch;
@@ -31,6 +33,7 @@
           text-align: left;
           background-color: #fff;
         }
+
         .back{
             background-color : #37434D;
         }

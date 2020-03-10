@@ -9,102 +9,168 @@ using System.Text;
 using FirebirdSql.Data.FirebirdClient;
 using System.Net;
 using System.Net.Mail;
+using System.IO;
 
 namespace Email_WebApp
 {
 	public partial class Main : System.Web.UI.Page
 	{
 		FbConnection cnx = new FbConnection("database=localhost:\\Users\\hp\\Desktop\\stage\\OT.FDB;user=sysdba;password=masterkey");
-
+		
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			if (!Page.IsPostBack)
 			{
-				if (cnx.State == ConnectionState.Open)
-					cnx.Close();
-				cnx.Open();
-
-				//FbCommand cmd = new FbCommand("select first 50 MATRICULE_152, PRENOM_152, EMAIL_152, DATE_COMPT_210, ('de  ' ||HE_COMPT_210 || '  à  ' || HS_COMPT_210) AS PERIODE ,CUMUL_ARRONDI_210 from T_0152_PERSONNEL join t_0210_mvts on MATRICULE_152 = MATRICULE_152_210", cnx, cnx.BeginTransaction());
-				FbCommand cmd = new FbCommand("GETPERSONNEL", cnx, cnx.BeginTransaction());
-				//cmd.CommandType = CommandType.Text;	
-				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue("@num", 50);
-				DataTable dt = new DataTable();
-				dt.Clear();
-				FbDataAdapter da = new FbDataAdapter(cmd);
-				da.Fill(dt);
-
-				//https://www.aspsnippets.com/Articles/Display-data-from-database-in-HTML-table-in-ASPNet.aspx
-
-				//Building an HTML string.
-				StringBuilder html = new StringBuilder();
-				
-				//Building the Data rows.
+				DataTable dt = GetData();
+				TotalEmp.InnerText = dt.Rows.Count.ToString();
+				int total = 0;
 				foreach (DataRow row in dt.Rows)
 				{
-					html.Append("<tr>");
-
-					html.Append("<td>");
-					html.Append("<input type=\"checkbox\" name=\"CheckSelect").Append(row["MATRICULE"]).Append("\">");
-					html.Append("</td>");
-
-					foreach (DataColumn column in dt.Columns)
-					{
-						html.Append("<td>");
-						html.Append(row[column.ColumnName]);
-						html.Append("</td>");
-					}
-					html.Append("</tr>");
-
-					// string ss = $"test { html }";
-					
+					total += int.Parse(row["TOTAL"].ToString());
 				}
-				datatableBody.Controls.Add(new Literal
-				{
-					Text = html.ToString()
-				});
+				TotalHs.InnerText = $"{total.ToString()} h";
+
+				GridView1.DataSource = dt;
+				GridView1.DataBind();
+
+				FillDropDownList();
+
 
 				// Activate the code below when you're ready to send emails
-				// SendEmail(dt);
+				//EmailClass.SendEmail(dt);
 			}
 		}
 
-		//https://stackoverflow.com/a/32336
-		/*private void SendEmail(DataTable dt)
+		private DataTable GetData()
 		{
-			for (int i = 0; i < dt.Rows.Count; i++)
-			{
-				string email = dt.Rows[i]["EMAIL"].ToString();
-				if (email == string.Empty)
-				{
-					TextArea1.InnerText += ("Email NOT sent to " + dt.Rows[i]["NOM"].ToString() + "\n");
-					break;
-				}
-				var fromAddress = new MailAddress("alamia5020@gmail.com", "Amine Alami");
-				var toAddress = new MailAddress(dt.Rows[i]["EMAIL"].ToString());
-				const string fromPassword = "aminox7895123";
-				string subject = "Test 3 to " + dt.Rows[i]["NOM"].ToString();
-				string body = "Test if emails work";
+			if (cnx.State == ConnectionState.Open)
+				cnx.Close();
+			cnx.Open();
 
-				var smtp = new SmtpClient
-				{
-					Host = "smtp.gmail.com",
-					Port = 587,
-					EnableSsl = true,
-					DeliveryMethod = SmtpDeliveryMethod.Network,
-					UseDefaultCredentials = false,
-					Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
-				};
-				using (var message = new MailMessage(fromAddress, toAddress)
-				{
-					Subject = subject,
-					Body = body
-				})
-				{
-					smtp.Send(message);
-				}
-				TextArea1.InnerText += ("Email sent to " + dt.Rows[i]["NOM"].ToString() + "\n");
+			FbCommand cmd = new FbCommand("GETPERSONNEL", cnx, cnx.BeginTransaction());
+			cmd.CommandType = CommandType.StoredProcedure;
+			//cmd.Parameters.AddWithValue("@du", "2020-02-03");
+			//cmd.Parameters.AddWithValue("@au", "2020-02-08");
+
+			DataTable dt = new DataTable();
+			FbDataAdapter da = new FbDataAdapter(cmd);
+			da.Fill(dt);
+			return dt;
+		}
+
+		private void FillDropDownList()
+		{
+			if (cnx.State == ConnectionState.Open)
+				cnx.Close();
+			cnx.Open();
+
+			FbCommand cmd = new FbCommand("GETSECTION", cnx, cnx.BeginTransaction());
+			cmd.CommandType = CommandType.StoredProcedure;
+
+			DataTable dt = new DataTable();
+			FbDataAdapter da = new FbDataAdapter(cmd);
+			da.Fill(dt);
+
+			TotalDep.InnerText = dt.Rows.Count.ToString();
+
+			DropDownList2.DataSource = dt;
+			DropDownList2.DataTextField = "LIBELLE";
+			DropDownList2.DataValueField = "CODE";
+			DropDownList2.DataBind();
+
+			DropDownList2.Items.Insert(0, new ListItem("SECTION", ""));
+		}
+
+		protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
+		{
+			DataTable dt = GetData();
+
+			dt.DefaultView.RowFilter = $"PRENOM LIKE '{TextBoxSearch.Text}%' OR MATRICULE LIKE '{TextBoxSearch.Text}%' ";
+			dt.DefaultView.RowFilter += $"AND PRENOM LIKE '{DropDownList1.SelectedValue}%' ";
+			if (DropDownList2.SelectedValue != "")
+				dt.DefaultView.RowFilter += $"AND SECTION = {DropDownList2.SelectedValue} ";
+			
+			
+			GridView1.PageIndex = e.NewPageIndex;
+			GridView1.DataSource = dt;
+			GridView1.DataBind();
+		}
+
+		protected void TextBoxSearch_TextChanged(object sender, EventArgs e)
+		{
+			DataTable dt = GetData();
+			dt.DefaultView.RowFilter = $"PRENOM LIKE '{TextBoxSearch.Text}%' OR MATRICULE LIKE '{TextBoxSearch.Text}%' ";
+			dt.DefaultView.RowFilter += $"AND PRENOM LIKE '{DropDownList1.SelectedValue}%' ";
+			if(DropDownList2.SelectedValue != "")
+				dt.DefaultView.RowFilter += $"AND SECTION = {DropDownList2.SelectedValue} ";
+
+			GridView1.DataSource = dt;
+			GridView1.DataBind();
+		}
+
+		protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			DataTable dt = GetData();
+			dt.DefaultView.RowFilter = $"PRENOM LIKE '{DropDownList1.SelectedValue}%' ";
+			if (DropDownList2.SelectedValue != "")
+				dt.DefaultView.RowFilter += $"AND SECTION = {DropDownList2.SelectedValue} ";
+			dt.DefaultView.RowFilter += $"AND (PRENOM LIKE '{TextBoxSearch.Text}%' OR MATRICULE LIKE '{TextBoxSearch.Text}%') ";
+
+			GridView1.DataSource = dt;
+			GridView1.DataBind();
+		}
+
+		protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			DataTable dt = GetData();
+			dt.DefaultView.RowFilter = $"PRENOM LIKE '{DropDownList1.SelectedValue}%' ";
+			if (DropDownList2.SelectedValue != "")
+				dt.DefaultView.RowFilter += $" AND SECTION = {DropDownList2.SelectedValue}";
+			dt.DefaultView.RowFilter += $"AND (PRENOM LIKE '{TextBoxSearch.Text}%' OR MATRICULE LIKE '{TextBoxSearch.Text}%') ";
+
+			GridView1.DataSource = dt;
+			GridView1.DataBind();
+		}
+
+		protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+		{
+			if (e.Row.RowType == DataControlRowType.DataRow)
+			{
+				(e.Row.FindControl("CheckBoxBody") as CheckBox).Checked = CheckBoxSelectAll.Checked;
 			}
-		}*/
+			
+		}
+
+		protected void TreeView1_TreeNodeCheckChanged(object sender, TreeNodeEventArgs e)
+		{
+			if (e.Node.Checked)
+			{
+				var stack = new Stack<TreeNode>();
+				stack.Push(e.Node);
+				while (stack.Count > 0)
+				{
+					var node = stack.Pop();
+					node.Checked = true;
+					foreach (TreeNode childNode in node.ChildNodes)
+					{
+						stack.Push(childNode);
+					}
+				}
+			}
+		}
+
+		protected void CheckBoxSelectAll_CheckedChanged(object sender, EventArgs e)
+		{
+			foreach (GridViewRow row in GridView1.Rows)
+			{
+				CheckBox CheckBoxBody = (CheckBox)row.FindControl("CheckBoxBody");
+				if (CheckBoxSelectAll.Checked)
+				{
+					CheckBoxBody.Checked = true;
+				}
+				else
+					CheckBoxBody.Checked = false;
+			}
+		}
 	}
 }
