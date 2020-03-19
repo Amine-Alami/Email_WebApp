@@ -21,6 +21,8 @@ namespace Email_WebApp
 		{
 			if (!Page.IsPostBack)
 			{
+				if (Session["User"] == null || Session["User"].ToString() != "admin")
+					Response.Redirect("Carousel.aspx");
 				TextBoxDU.Text = ("2019-01-01");
 				TextBoxAU.Text = DateTime.Now.ToString("yyyy-MM-dd");
 
@@ -134,7 +136,83 @@ namespace Email_WebApp
 			GridView1.DataBind();
 		}
 
+		protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+		{
+			if (e.Row.RowType == DataControlRowType.DataRow)
+			{
+				(e.Row.FindControl("CheckBoxBody") as CheckBox).Checked = CheckBoxSelectAll.Checked;
+			}
+			
+		}
+
+		protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
+		{
+			DataTable dt = GetData();
+
+			SetSortDirection(SortDireaction);
+			if (dt != null)
+			{
+				//Sort the data.
+				dt.DefaultView.Sort = e.SortExpression + " " + _sortDirection;
+				GridView1.DataSource = dt;
+				GridView1.DataBind();
+				SortDireaction = _sortDirection;
+				int columnIndex = 0;
+				foreach (DataControlFieldHeaderCell headerCell in GridView1.HeaderRow.Cells)
+				{
+					if (headerCell.ContainingField.SortExpression == e.SortExpression)
+					{
+						columnIndex = GridView1.HeaderRow.Cells.GetCellIndex(headerCell);
+					}
+				}
+				
+			}
+		}
+		public string  SortDireaction
+		{
+			get
+			{
+				if (ViewState["SortDireaction"] == null)
+					return string.Empty;
+				else
+					return ViewState["SortDireaction"].ToString();
+			}
+			set
+			{
+				ViewState["SortDireaction"] = value;
+			}
+		}
+		private string _sortDirection;
+		protected void SetSortDirection(string sortDirection)
+		{
+			if (sortDirection == "ASC")
+			{
+				_sortDirection = "DESC";
+
+			}
+			else
+			{
+				_sortDirection = "ASC";
+			}
+		}
+
 		protected void TextBoxSearch_TextChanged(object sender, EventArgs e)
+		{
+			DataTable dt = GetData();
+
+			GridView1.DataSource = dt;
+			GridView1.DataBind();
+		}
+
+		protected void TextBoxDU_TextChanged(object sender, EventArgs e)
+		{
+			DataTable dt = GetData();
+
+			GridView1.DataSource = dt;
+			GridView1.DataBind();
+		}
+
+		protected void TextBoxAU_TextChanged(object sender, EventArgs e)
 		{
 			DataTable dt = GetData();
 
@@ -158,13 +236,12 @@ namespace Email_WebApp
 			GridView1.DataBind();
 		}
 
-		protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+		protected void DropDownListDetails_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (e.Row.RowType == DataControlRowType.DataRow)
-			{
-				(e.Row.FindControl("CheckBoxBody") as CheckBox).Checked = CheckBoxSelectAll.Checked;
-			}
-			
+			DataTable dt = GetData();
+
+			GridView1.DataSource = dt;
+			GridView1.DataBind();
 		}
 
 		protected void CheckBoxSelectAll_CheckedChanged(object sender, EventArgs e)
@@ -196,81 +273,6 @@ namespace Email_WebApp
 				CheckBoxSelectAll.Checked = false;
 			else
 				CheckBoxSelectAll.Checked = true;
-		}
-
-		protected void TextBoxDU_TextChanged(object sender, EventArgs e)
-		{
-			DataTable dt = GetData();
-
-			GridView1.DataSource = dt;
-			GridView1.DataBind();
-		}
-
-		protected void TextBoxAU_TextChanged(object sender, EventArgs e)
-		{
-			DataTable dt = GetData();
-
-			GridView1.DataSource = dt;
-			GridView1.DataBind();
-		}
-
-		protected void DropDownListDetails_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			DataTable dt = GetData();
-
-			GridView1.DataSource = dt;
-			GridView1.DataBind();
-		}
-
-		protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
-		{
-			DataTable dt = GetData();
-
-			SetSortDirection(SortDireaction);
-			if (dt != null)
-			{
-				//Sort the data.
-				dt.DefaultView.Sort = e.SortExpression + " " + _sortDirection;
-				GridView1.DataSource = dt;
-				GridView1.DataBind();
-				SortDireaction = _sortDirection;
-				int columnIndex = 0;
-				foreach (DataControlFieldHeaderCell headerCell in GridView1.HeaderRow.Cells)
-				{
-					if (headerCell.ContainingField.SortExpression == e.SortExpression)
-					{
-						columnIndex = GridView1.HeaderRow.Cells.GetCellIndex(headerCell);
-					}
-				}
-				
-			}
-		}
-		public string SortDireaction
-		{
-			get
-			{
-				if (ViewState["SortDireaction"] == null)
-					return string.Empty;
-				else
-					return ViewState["SortDireaction"].ToString();
-			}
-			set
-			{
-				ViewState["SortDireaction"] = value;
-			}
-		}
-		private string _sortDirection;
-		protected void SetSortDirection(string sortDirection)
-		{
-			if (sortDirection == "ASC")
-			{
-				_sortDirection = "DESC";
-
-			}
-			else
-			{
-				_sortDirection = "ASC";
-			}
 		}
 
 		protected void TreeView1_TreeNodeCheckChanged(object sender, TreeNodeEventArgs e)

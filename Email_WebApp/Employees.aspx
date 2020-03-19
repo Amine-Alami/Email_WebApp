@@ -104,7 +104,7 @@
                                                 <asp:TreeView ID="TreeView1" runat="server" CssClass="treeview" ShowCheckBoxes="All" ImageSet="Simple" OnTreeNodeCheckChanged="TreeView1_TreeNodeCheckChanged" BackColor="#CCCCCC" NodeIndent="10" ShowLines="True">
                                                         <HoverNodeStyle Font-Underline="True" ForeColor="#DD5555" />
                                                         <Nodes>
-                                                            <asp:TreeNode Text="GROUPE" Value="1" NavigateUrl="#" SelectAction="Expand">
+                                                            <asp:TreeNode Text="GROUPE" Value="1">
                                                                 <asp:TreeNode Text="AGADIR" Value="1000">
                                                                     <asp:TreeNode Text="OSC." Value="1001">
                                                                         <asp:TreeNode Text="SEM-OSC" Value="10011">

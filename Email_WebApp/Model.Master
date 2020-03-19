@@ -39,6 +39,16 @@
         }
 
     </style>
+    
+    
+    <script src="Navbar/js/jquery.min.js"></script>
+    <script src="ProfileBtn/js/jquery.min.js"></script>
+    <script src="Navbar/bootstrap/js/bootstrap.min.js"></script>
+    <script src="ProfileBtn/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="ProfileBtn/js/theme.js"></script>
+
+
     <link rel="stylesheet" href="Navbar/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="Navbar/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="Navbar/css/Dark-NavBar-1.css">
@@ -52,13 +62,16 @@
     <link rel="stylesheet" href="Footer/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="Footer/css/Pretty-Footer.css">
     <link rel="stylesheet" href="Footer/css/styles.css">
+
 </head>
 <body>
     <%--header--%>
     <div class="auto-style4" ><img class="auto-style5" src="Images/OmniLogo.PNG" /></div>
     
-    <%--Navbar--%>
+    <form id="form1" runat="server">
+    
     <div>
+        <%--Navbar--%>
         <nav class="navbar navbar-light navbar-expand-md sticky-top navigation-clean-button" style="height:80px;background-color:#37434d;color:#ffffff;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="Carousel.aspx" style="color:white">
@@ -71,75 +84,70 @@
                 </button>
                 <div class="collapse navbar-collapse back" id="navcol-1">
                     <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item" role="presentation"><a class="nav-link " style="color:#ffffff;" href="Employees.aspx">                 <i class="fa fa-envelope"></i>&nbsp;Mailing</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link " style="color:#ffffff;" href="#register" data-toggle="modal">  <i class="fa fa-user-plus"></i>&nbsp;Sign up</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link " style="color:#ffffff;" href="#signin" data-toggle="modal">    <i class="fa fa-sign-in"></i>&nbsp;Sign In</a></li>
+                        <li class="nav-item" role="presentation" id="login" runat="server">
+                            <asp:LinkButton ID="NavSignin" runat="server" class="nav-link " style="color:#ffffff;" href="#signin" data-toggle="modal" OnClick="NavSignin_Click">
+                                <i class="fa fa-sign-in"></i>
+                                &nbsp;&nbsp;Se connecter
+                            </asp:LinkButton>
+                        </li>
+                        <li class="nav-item dropdown no-arrow" role="presentation" id="logout" runat="server">
+                            <div class="nav-item dropdown no-arrow">
+                                <asp:LinkButton ID="NavProfile" runat="server" class="nav-link dropdown-toggle" style="color:#ffffff;" data-toggle="dropdown" aria-expanded="false">
+                                    <span ID="ProfileName" runat="server"></span>
+                                    <img class="border rounded-circle img-profile" src="Images/default-user-icon.png" width="20" height="20" >
+                                </asp:LinkButton>
+                                <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
+                                    <asp:LinkButton ID="btnProfile" runat="server" class="dropdown-item" role="presentation" OnClick="btnProfile_Click">
+                                        <i class="fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Profile
+                                    </asp:LinkButton>
+                                    <asp:LinkButton ID="btnActivity" runat="server" class="dropdown-item" role="presentation" OnClick="btnActivity_Click">
+                                        <i class="fa fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Activity log
+                                    </asp:LinkButton>
+
+                                    <div class="dropdown-divider"></div>
+                                    <asp:LinkButton ID="btnLogout" runat="server" class="dropdown-item" role="presentation" OnClick="btnLogout_Click">
+                                        <i class="fa fa-sign-out fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Déconnecter
+                                    </asp:LinkButton>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <div class="modal fade" role="dialog" tabindex="-1" id="signin">
+
+        <%--Sign in--%>
+        <div class="modal fade"role="dialog" tabindex="-1" id="signin">
             <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Sign in</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-prepend"><span class="text-primary input-group-text"><i class="fa fa-user"></i></span></div><input class="form-control" type="text" required="" placeholder="Username">
-                                    <div class="input-group-append"></div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-prepend"><span class="text-primary input-group-text"><i class="fa fa-lock"></i></span></div><input class="form-control" type="password" required="" placeholder="Password">
-                                    <div class="input-group-append"></div>
-                                </div>
-                            </div>
-                            <div class="form-group"><button class="btn btn-primary btn-lg text-white" style="width: 100%;" type="button">Sign in</button></div>
-                        </form>
-                        <hr style="background-color: #bababa;">
-                        <p class="text-center">&nbsp;<button class="btn btn-link" data-dismiss="modal" data-toggle="modal" data-target="#register">I don't have an account.</button></p>
+                        <h4 class="modal-title">Connexion</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" role="dialog" tabindex="-1" id="register">
-            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Sign up</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                     <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-prepend"><span class="text-primary input-group-text"><i class="fa fa-user"></i></span></div><input class="form-control" type="text" required="" placeholder="Username">
-                                    <div class="input-group-append"></div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="text-primary input-group-text"><i class="fa fa-user"></i></span>
                                 </div>
+                                <asp:TextBox ID="txtLogin" runat="server" CssClass="form-control" placeholder="Nom d'utilisateur" required=""></asp:TextBox>
+                                <div class="input-group-append"></div>
                             </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-prepend"><span class="text-primary input-group-text"><i class="fa fa-envelope-o"></i></span></div><input class="form-control" type="email" required="" placeholder="E-mail">
-                                    <div class="input-group-append"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="text-primary input-group-text"><i class="fa fa-lock"></i></span>
                                 </div>
+                                <asp:TextBox ID="txtPass" runat="server" CssClass="form-control" placeholder="Mot de passe" type="password" required=""></asp:TextBox>
+                                <div class="input-group-append"></div>
                             </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-prepend"><span class="text-primary input-group-text"><i class="fa fa-lock"></i></span></div><input class="form-control" type="password" required="" placeholder="Password">
-                                    <div class="input-group-append"></div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-prepend"><span class="text-primary input-group-text"><i class="fa fa-lock"></i></span></div><input class="form-control" type="password" required="" placeholder="Confirm password">
-                                    <div class="input-group-append"></div>
-                                </div>
-                            </div>
-                            <div class="form-group"><button class="btn btn-primary btn-lg text-white" style="width: 100%;" type="button">Sign up</button></div>
-                        </form>
-                        <hr style="background-color: #bababa;">
-                        <p class="text-center">&nbsp;<button class="btn btn-link" data-dismiss="modal" data-toggle="modal" data-target="#signin">I already have an account.</button></p>
+                        </div>
+                        <div class="form-group">
+                            <asp:Button ID="btnSignIN" runat="server" Text="Se connecter" CssClass="btn btn-primary btn-lg text-white" Width="100%" type="button" OnClick="btnSignIN_Click"/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -147,9 +155,9 @@
     </div>
     
     <%-- Content --%>
-    <form id="form1" runat="server">
         <div>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" >
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                
             </asp:ContentPlaceHolder>
         </div>
     </form>
@@ -181,8 +189,5 @@
             </div>
         </div>
     </footer>
-    
-    <script src="Navbar/js/jquery.min.js"></script>
-    <script src="Navbar/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
